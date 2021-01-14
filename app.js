@@ -35,20 +35,17 @@ function playRound() {
 }
 
 function enableSquares() {
-    squares.forEach((square, index) => {
+    squares.forEach(square => {
         square.style.cursor = 'pointer'
         square.addEventListener('click', playerClickSquare)
     })
-
-    console.log('You can click the squares now')
 }
 
 function disableSquares() {
-    squares.forEach((square) => {
+    squares.forEach(square => {
         square.style.cursor = 'auto'
         square.removeEventListener('click', playerClickSquare)
     })
-    console.log('squares disabled')
 }
 
 function playerClickSquare(e) {
@@ -57,20 +54,28 @@ function playerClickSquare(e) {
     // Clear player array
     selectedPlayer.push(e.target.id)
 
-    selectedPlayer.forEach((square, index) => {
-        if (square == selectedMachine[index]) {
-            if (index == selectedMachine.length - 1) {
-                selectedPlayer = [];
-                round++
-                changeRoundDisplay(round);
-                playRound();
-            }
-            console.log('vas bien');
+    let lastSelectedPlayer = selectedPlayer.length - 1;
+
+    // Compare last element in selectedPlayer with the corresponding selectedMachine element
+    if(selectedPlayer[lastSelectedPlayer] === selectedMachine[lastSelectedPlayer]) {
+        // Check if the machine sequence has been completed
+        if(selectedPlayer.length === selectedMachine.length) {
+            handleWin()
         } else {
-            console.log('You lose, restarting')
-            reset();
+            console.log('vas bien');
         }
-    })
+    } else {
+        console.log('la cagaste')
+        reset();
+    }
+}
+
+function handleWin() {
+    selectedPlayer = [];
+    round++
+    changeRoundDisplay(round);
+    playRound();
+    console.log('ganaste la ronda')
 }
 
 function changeSquareColor(squareId, timeout) {
