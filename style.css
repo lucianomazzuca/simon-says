@@ -1,5 +1,5 @@
 :root {
-    --bg-color: #1e2335
+    --bg-color: #1F2937
 }
 
 * {
@@ -41,12 +41,8 @@ h1 {
     height: 150px;
     width: 150px;
     margin: 5px;
-    cursor: pointer;
 }
 
-.square:hover {
-    opacity: 0.5;
-}
 
 #square-1 {
     background-color: #dd0000;
@@ -99,4 +95,29 @@ h1 {
     font-size: 40px;
     font-weight: 600;
 }
+
+.btn {
+    background-color: white;
+    margin-top: 4rem;
+    width: 100px;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 22px;
+    border: none;
+    color: black;
+    font-weight: ;
+    background-color: #FB923C;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+}
+
+.btn:hover {
+    background-color: #F97316;
+}
+
+.btn:focus {
+    outline: none;
+}
+
+
 
