@@ -10,6 +10,7 @@ startBtn.addEventListener('click', playRound);
 function playRound() {
     // Block square click
     disableSquares()
+    disableStartBtn()
     
     // Adds a new square to the machine sequence
     const square = getRandomSquare();
@@ -34,20 +35,6 @@ function playRound() {
     }, playerTimeout);
 }
 
-function enableSquares() {
-    squares.forEach(square => {
-        square.style.cursor = 'pointer'
-        square.addEventListener('click', playerClickSquare)
-    })
-}
-
-function disableSquares() {
-    squares.forEach(square => {
-        square.style.cursor = 'auto'
-        square.removeEventListener('click', playerClickSquare)
-    })
-}
-
 function playerClickSquare(e) {
     changeSquareColor(e.target.id, 100)
     
@@ -69,6 +56,7 @@ function playerClickSquare(e) {
         reset();
     }
 }
+
 
 function handleWin() {
     selectedPlayer = [];
@@ -104,11 +92,38 @@ function reset() {
 
     changeRoundDisplay(round)
     disableSquares()
+    enableStartBtn()
 }
 
 function changeRoundDisplay(number) {
     const roundDisplay = document.querySelector('#round');
 
     roundDisplay.innerText = round;
+}
+
+function enableSquares() {
+    squares.forEach(square => {
+        square.style.cursor = 'pointer'
+        square.addEventListener('click', playerClickSquare)
+    })
+}
+
+function disableSquares() {
+    squares.forEach(square => {
+        square.style.cursor = 'auto'
+        square.removeEventListener('click', playerClickSquare)
+    })
+}
+
+function disableStartBtn() {
+    startBtn.removeEventListener('click', playRound);
+    startBtn.style.background = 'gray';
+    startBtn.style.cursor = 'auto'
+}
+
+function enableStartBtn() {
+    startBtn.addEventListener('click', playRound);
+    startBtn.style.background = '#FB923C';
+    startBtn.style.cursor = 'pointer'
 }
 
