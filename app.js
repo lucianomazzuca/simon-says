@@ -1,6 +1,5 @@
 const startBtn = document.querySelector('#start');
 const squares = document.querySelectorAll('.square');
-const lostMsg = document
 
 let selectedMachine = [];
 let selectedPlayer  = [];
