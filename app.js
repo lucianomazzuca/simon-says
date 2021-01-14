@@ -1,5 +1,6 @@
 const startBtn = document.querySelector('#start');
 const squares = document.querySelectorAll('.square');
+const lostMsg = document
 
 let selectedMachine = [];
 let selectedPlayer  = [];
@@ -8,6 +9,9 @@ let round = 1;
 startBtn.addEventListener('click', playRound);
 
 function playRound() {
+    // Delete lost message
+    hideLossMsg()
+    
     // Block square click
     disableSquares()
     disableStartBtn()
@@ -16,9 +20,8 @@ function playRound() {
     const square = getRandomSquare();
     selectedMachine.push(square);
 
-    // Change squares opacity based on machine array
+    // Change squares opacity based on machine sequence
     selectedMachine.forEach((square, index) => {
-        // Each iteration adds an extra second to timeout so that we can see the opacity change in order
         const timeout = (index + 1) * 1000;
 
         setTimeout(() => {
@@ -26,7 +29,7 @@ function playRound() {
         }, timeout);
     })
 
-    // Let Player play
+    // Let Player play after the machine finishes displaying the sequence
     const playerTimeout = (round * 1000) + 500;
     
     setTimeout(() => {
@@ -43,17 +46,19 @@ function playerClickSquare(e) {
 
     let lastSelectedPlayer = selectedPlayer.length - 1;
 
-    // Compare last element in selectedPlayer with the corresponding selectedMachine element
+    // Compare last element square selected by player with the corresponding selectedMachine element
     if(selectedPlayer[lastSelectedPlayer] === selectedMachine[lastSelectedPlayer]) {
         // Check if the machine sequence has been completed
         if(selectedPlayer.length === selectedMachine.length) {
-            handleWin()
+            handleWin();
+            console.log('ganaste la ronda')
         } else {
             console.log('vas bien');
         }
     } else {
         console.log('la cagaste')
         reset();
+        showLossMsg()
     }
 }
 
@@ -63,7 +68,15 @@ function handleWin() {
     round++
     changeRoundDisplay(round);
     playRound();
-    console.log('ganaste la ronda')
+}
+
+
+function showLossMsg(msg) {
+    document.querySelector('.lost-msg').style.visibility = 'visible';
+}
+
+function hideLossMsg() {
+    document.querySelector('.lost-msg').style.visibility = 'hidden';
 }
 
 function changeSquareColor(squareId, timeout) {
